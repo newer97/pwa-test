@@ -6,6 +6,8 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import Head from "next/head";
+import { ThemeProvider } from "~/components/theme-provider";
+import { MainNav } from "~/components/nav";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -20,7 +22,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <MainNav />
+          <Component {...pageProps} />
+        </ThemeProvider>
       </SessionProvider>
     </>
   );
